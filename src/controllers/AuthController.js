@@ -1,5 +1,4 @@
 import AuthService from "../services/AuthService.js";
-import { signupSchema } from "../validations/authValidation.js";
 
 export default class AuthController {
   constructor() {
@@ -8,9 +7,9 @@ export default class AuthController {
 
   register = async (req, res, next) => {
     try {
-      const res = await this.authService.register(req.body);
-      res.status(201).json({
-        message: "Registered successfully",
+      await this.authService.register(req.body);
+      return res.status(201).json({
+        success: "Registered successfully",
       });
     } catch (error) {
       next(error);
