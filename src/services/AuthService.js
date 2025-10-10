@@ -18,4 +18,17 @@ export default class AuthService {
       throw new Error("User creation failed");
     }
   }
+
+  async login(data) {
+    const user = await this.userRepository.findByEmail(data.email);
+    if (!user) {
+      throw new Error("No user found with this email");
+    }
+    const isMatch = await user.comparePassword(data.password);
+    if (!isMatch) {
+      throw new Error("Incorrect credentials");
+    }
+    delete user.password;
+    return user;
+  }
 }
