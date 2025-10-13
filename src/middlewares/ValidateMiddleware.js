@@ -1,4 +1,3 @@
-
 export default class ValidateMiddleware {
   static validate(schema) {
     return async (req, res, next) => {
@@ -6,9 +5,9 @@ export default class ValidateMiddleware {
 
       if (!result.success) {
         return res.status(400).json({
-          message: "Erreur de validation",
+          message: 'Erreur de validation',
           errors: result.error.issues.map((issue) => ({
-            path: issue.path.join("."),
+            path: issue.path.join('.'),
             message: issue.message,
           })),
         });

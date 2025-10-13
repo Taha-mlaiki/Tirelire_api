@@ -1,5 +1,5 @@
-import AuthService from "../services/AuthService.js";
-import JwtUtil from "../utils/jwtUtil.js";
+import AuthService from '../services/AuthService.js';
+import JwtUtil from '../utils/jwtUtil.js';
 
 export default class AuthController {
   constructor() {
@@ -10,14 +10,14 @@ export default class AuthController {
     try {
       await this.authService.register(req.body);
       return res.status(201).json({
-        success: "Registered successfully",
+        success: 'Registered successfully',
       });
     } catch (error) {
       next(error);
     }
   };
 
-  login = async (req, res, next) => {
+  login = async (req, res) => {
     try {
       const user = await this.authService.login(req.body);
       const token = JwtUtil.sign({
@@ -26,12 +26,12 @@ export default class AuthController {
         role: user.role,
       });
       return res.status(200).json({
-        success: "Loged in successfully",
+        success: 'Loged in successfully',
         user,
         token,
       });
     } catch (error) {
-      next(error);
+      return res.status(400).json(error);
     }
   };
 }

@@ -1,7 +1,6 @@
-import { User } from "../models/User.js";
+import { User } from '../models/User.js';
 
 export default class UserRepository {
-
   async findByEmail(email) {
     return await User.findOne({ email });
   }
@@ -11,5 +10,4 @@ export default class UserRepository {
     await user.save({ validateBeforeSave: false });
     return user;
   }
-
 }

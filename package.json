@@ -6,7 +6,10 @@
   "type": "module",
   "scripts": {
     "dev": "node --watch ./src/app.js",
-    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --runInBand"
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --runInBand",
+    "lint": "eslint . --ext .js",
+    "lint:fix": "eslint . --ext .js --fix",
+    "format": "prettier --write"
   },
   "keywords": [],
   "author": "",
@@ -26,8 +29,13 @@
   },
   "devDependencies": {
     "@babel/preset-env": "^7.28.3",
+    "@eslint/js": "^9.37.0",
     "babel-jest": "^30.2.0",
+    "eslint": "^9.37.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.4",
     "jest": "^30.2.0",
+    "prettier": "^3.6.2",
     "supertest": "^7.1.4"
   }
 }

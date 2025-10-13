@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
-import bcrypt from "bcryptjs";
+import mongoose from 'mongoose';
+import bcrypt from 'bcryptjs';
 
 const userSchema = new mongoose.Schema({
   firstName: { type: String, trim: true, required: true },
@@ -12,12 +12,12 @@ const userSchema = new mongoose.Schema({
     trim: true,
   },
   password: { type: String, required: true },
-  role: { type: String, enum: ["Member", "Admin"], default: "Member" },
+  role: { type: String, enum: ['Member', 'Admin'], default: 'Member' },
   kyc: {
     status: {
       type: String,
-      enum: ["pending", "verified", "rejected"],
-      default: "pending",
+      enum: ['pending', 'verified', 'rejected'],
+      default: 'pending',
     },
     idNumber: { type: String, trim: true, required: false },
     idImageUrl: { type: String, required: false },
@@ -27,8 +27,8 @@ const userSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now },
 });
 
-userSchema.pre("save", async function (next) {
-  if (!this.isModified("password")) return next();
+userSchema.pre('save', async function (next) {
+  if (!this.isModified('password')) return next();
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
   next();
@@ -38,4 +38,4 @@ userSchema.methods.comparePassword = async function (candidatePassword) {
   return await bcrypt.compare(candidatePassword, this.password);
 };
 
-export const User = mongoose.model("User", userSchema);
+export const User = mongoose.model('User', userSchema);
