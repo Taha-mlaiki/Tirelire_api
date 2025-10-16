@@ -5,6 +5,9 @@ export default class UserRepository {
     return await User.findOne({ email });
   }
 
+  async findById(id) {
+    return await User.findById(id);
+  }
   async create(data) {
     const user = new User(data);
     await user.save({ validateBeforeSave: false });

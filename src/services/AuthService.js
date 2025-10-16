@@ -13,7 +13,16 @@ export default class AuthService {
       throw error;
     }
 
-    const user = await this.userRepository.create(data);
+    const user = await this.userRepository.create({
+      firstName: data.firstName,
+      lastName: data.lastName,
+      email: data.email,
+      password: data.password,
+      kyc: {
+        idNumber: data.ID,
+      },
+    });
+
     if (!user) {
       throw new Error('User creation failed');
     }
@@ -31,6 +40,16 @@ export default class AuthService {
       throw error;
     }
     delete user.password;
+    return user;
+  }
+
+  async findUserById(id) {
+    const user = this.userRepository.findById(id);
+    if (!user) {
+      const error = new Error('User not found');
+      error.status = 404;
+      throw error;
+    }
     return user;
   }
 }
