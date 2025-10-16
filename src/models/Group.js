@@ -11,15 +11,22 @@ const groupSchema = new mongoose.Schema(
       type: String,
       trim: true,
     },
-    owner: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
-      required: true,
-    },
+    paymentAmount: Number,
+    paymentDate: Date,
+    currentRound: { type: Number, default: 1 },
+    totalRounds: Number,
+    order: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }], // order of who receives
+    status: { type: String, enum: ['active', 'completed'], default: 'active' },
     members: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
+      },
+    ],
+    balances: [
+      {
+        member: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+        received: { type: Number, default: 0 },
       },
     ],
   },

@@ -9,6 +9,7 @@ import groupRoutes from './routes/group.routes.js';
 import authRoutes from './routes/auth.routes.js';
 import chatRoutes from './routes/chat.routes.js';
 import ticketRoutes from './routes/ticket.routes.js';
+import paymentRoutes from './routes/payment.routes.js';
 
 dotenv.config();
 
@@ -22,6 +23,8 @@ app.use('/auth', authRoutes);
 app.use('/api/groups', groupRoutes);
 app.use('/api/chat', chatRoutes);
 app.use('/api/tickets', ticketRoutes);
+app.use('/payments', paymentRoutes);
+app.use('/stripe', stripeWebhookRoutes); // webhook route, no auth
 // Middleware global d’erreur
 app.use(ErrorMiddleware.handle);
 
