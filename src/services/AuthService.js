@@ -24,7 +24,9 @@ export default class AuthService {
     });
 
     if (!user) {
-      throw new Error('User creation failed');
+      const error = new Error('User creation failed');
+      error.status = 400;
+      throw error;
     }
   }
 
@@ -32,7 +34,7 @@ export default class AuthService {
     const user = await this.userRepository.findByEmail(data.email);
     if (!user) {
       const error = new Error('No user found with this email');
-      error.status = 400;
+      error.status = 404;
       throw error;
     }
     const isMatch = await user.comparePassword(data.password);
