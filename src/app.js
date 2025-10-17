@@ -9,7 +9,8 @@ import groupRoutes from './routes/group.routes.js';
 import authRoutes from './routes/auth.routes.js';
 import chatRoutes from './routes/chat.routes.js';
 import ticketRoutes from './routes/ticket.routes.js';
-import paymentRoutes from './routes/payment.routes.js';
+import kycRoutes from './routes/kyc.routes.js';
+// import paymentRoutes from './routes/payment.routes.js';
 
 dotenv.config();
 
@@ -19,13 +20,18 @@ app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 // Routes
-app.use('/auth', authRoutes);
+app.use('/api/auth', authRoutes);
 app.use('/api/groups', groupRoutes);
 app.use('/api/chat', chatRoutes);
 app.use('/api/tickets', ticketRoutes);
-app.use('/payments', paymentRoutes);
-app.use('/stripe', stripeWebhookRoutes); // webhook route, no auth
+
+// Routes
+app.use('/api/kyc', kycRoutes);
+
+// app.use('/payments', paymentRoutes);
+// app.use('/stripe', stripeWebhookRoutes); // webhook route, no auth
 // Middleware global d’erreur
+
 app.use(ErrorMiddleware.handle);
 
 // Connexion DB + lancement serveur

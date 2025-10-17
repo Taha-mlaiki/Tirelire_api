@@ -1,5 +1,5 @@
 import Payment from '../models/Payment.js';
-import Group from '../models/Group.js';
+import { Group } from '../models/Group.js';
 import stripe from '../config/stripe.js';
 
 export class PaymentService {

@@ -31,7 +31,9 @@ export default class AuthService {
   async login(data) {
     const user = await this.userRepository.findByEmail(data.email);
     if (!user) {
-      throw new Error('No user found with this email');
+      const error = new Error('No user found with this email');
+      error.status = 400;
+      throw error;
     }
     const isMatch = await user.comparePassword(data.password);
     if (!isMatch) {

@@ -1,6 +1,6 @@
 import Stripe from 'stripe';
 import Payment from '../models/Payment.js';
-import Group from '../models/Group.js';
+import { Group } from '../models/Group.js';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
@@ -11,21 +11,21 @@ export default class PaymentController {
       const group = await Group.findById(groupId);
       if (!group) return res.status(404).json({ message: 'Groupe non trouvé' });
 
-      const paymentIntent = await stripe.paymentIntents.create({
-        amount: group.paymentAmount * 100,
-        currency: 'usd',
-        metadata: { groupId, payerId: req.user.id },
-      });
+      //   const paymentIntent = await stripe.paymentIntents.create({
+      //     amount: group.paymentAmount * 100,
+      //     currency: 'usd',
+      //     metadata: { groupId, payerId: req.user.id },
+      //   });
 
       const payment = await Payment.create({
         group: groupId,
         payer: req.user.id,
         amount: group.paymentAmount,
         status: 'pending',
-        stripePaymentIntentId: paymentIntent.id,
+        stripePaymentIntentId: 'testId',
       });
 
-      res.status(201).json({ clientSecret: paymentIntent.client_secret, paymentId: payment._id });
+      res.status(201).json({ clientSecret: 'testClientSecret', paymentId: payment._id });
     } catch (err) {
       res.status(500).json({ message: err.message });
     }

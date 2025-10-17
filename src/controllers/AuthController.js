@@ -6,14 +6,14 @@ export default class AuthController {
     this.authService = new AuthService();
   }
 
-  register = async (req, res, next) => {
+  register = async (req, res) => {
     try {
       await this.authService.register(req.body);
       return res.status(201).json({
         success: 'Registered successfully',
       });
     } catch (error) {
-      next(error);
+      return res.json({ error });
     }
   };
 
@@ -31,7 +31,7 @@ export default class AuthController {
         token,
       });
     } catch (error) {
-      return res.status(400).json(error);
+      return res.status(error.status || 500).json({ error: error.message });
     }
   };
 }
