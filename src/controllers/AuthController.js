@@ -13,7 +13,7 @@ export default class AuthController {
         success: 'Registered successfully',
       });
     } catch (error) {
-      return res.json({ error });
+      return res.status(error.status || 500).json({ message: error.message });
     }
   };
 

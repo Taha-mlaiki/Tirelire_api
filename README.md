@@ -5,6 +5,10 @@ Open main app: [src/app.js](src/app.js)
 
 ---
 
+## api documentation
+
+https://6us4gwzbnz.apidog.io/
+
 ## Overview
 
 Tirelire is a backend API that provides user authentication, group management (rotating rounds), chat, ticketing and KYC verification. Core modules:
